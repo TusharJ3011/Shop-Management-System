@@ -4,12 +4,19 @@
 
     <h1 style="text-align: center">Find Product</h1>
 
+    {%if fProduct.errorCode=='error'%}
+    <div class="alert alert-danger">
+        Please select correct values
+    </div>
+    {%endif%}
+
     <form method="post", action="/fpro">
         <div class="input-group m-1">
             <div class="input-group-prepend">
                 <span class="input-group-text">Select Product Brand</span>
             </div>
             <select class="custom-select" id="productBrand" name="brand">
+                <option value="none">Please select here...</option>
                 {% for brand in fProduct.brands %}
                 <option {%if brand == fProduct.sBrand%}selected{%endif%}>{{brand}}</option>
                 {% endfor %}
@@ -26,6 +33,7 @@
                 <span class="input-group-text">Select Product Name</span>
             </div>
             <select class="custom-select" id="productName" name="product">
+                <option value="none">Please select here...</option>
                 {% for product in fProduct.products %}
                 <option {%if product == fProduct.sProduct %}selected{%endif%}>{{product}}</option>
                 {% endfor %}
@@ -41,6 +49,7 @@
                 <span class="input-group-text">Select Product Type</span>
             </div>
             <select class="custom-select" id="productType", name="type">
+                <option value="none">Please select here...</option>
                 {% for type in fProduct.types %}
                 <option {%if type == fProduct.sType%}selected{%endif%}>{{type}}</option>
                 {% endfor %}
