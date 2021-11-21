@@ -156,6 +156,7 @@ class FindProduct:
         self.sBrand = None
         self.sProduct = None
         self.sType = None
+        self.errorCode = 'noerror'
 
     def getBrandNames(self):
         temp = createRunners()
@@ -249,7 +250,6 @@ class Checkout(FindProduct):
         super().__init__()
         self.cost = 0
         self.amount = None
-        self.errorCode = 'noerror'
         self.tags = []
         self.addedProducts = [[], [], []]
 
@@ -376,7 +376,6 @@ class Checkout(FindProduct):
             myCursor.execute(f"DELETE FROM types WHERE typeID={data[0]}")
             myDB.commit()
             return False
-
 
 
 def createRunners():
