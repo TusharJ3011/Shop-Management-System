@@ -6,7 +6,8 @@ import dbms
 import security
 
 app = Flask(__name__)
-app.secret_key = '20UCS211_SMS'
+app.secret_key = 'N3G2_SMS'
+app.register_error_handler(404, 'pageNotFound')
 
 WORKING_AGE_LIMIT_DAYS = int(14 * 365.25)
 
@@ -31,6 +32,8 @@ runningAcc = None
 
 
 @app.route('/')
+@app.route('/home')
+@app.route('/home/')
 def home():
     global runningAcc
     runningAcc = None
@@ -52,11 +55,15 @@ def findProduct():
 def fpro():
     global runningAcc
     runningAcc = None
-    global fProduct
     data = request.form
-    fProduct.resetAfterfpro()
-    fProduct.sBrand = data['brand']
-    fProduct.getBrandProducts()
+    global fProduct
+    if data['brand'] == 'none':
+        fProduct.errorCode = 'error'
+    else:
+        fProduct.resetAfterfpro()
+        fProduct.sBrand = data['brand']
+        fProduct.errorCode = 'noerror'
+        fProduct.getBrandProducts()
     return redirect(url_for('findProduct'))
 
 
@@ -64,11 +71,15 @@ def fpro():
 def ftype():
     global runningAcc
     runningAcc = None
-    global fProduct
     data = request.form
-    fProduct.resetAfterftype()
-    fProduct.sProduct = data['product']
-    fProduct.getProductTypes()
+    global fProduct
+    if data['product'] == 'none':
+        fProduct.errorCode = 'error'
+    else:
+        fProduct.resetAfterftype()
+        fProduct.sProduct = data['product']
+        fProduct.errorCode = 'noerror'
+        fProduct.getProductTypes()
     return redirect(url_for('findProduct'))
 
 
@@ -77,6 +88,7 @@ def resetFindProducts():
     global runningAcc
     runningAcc = None
     global fProduct
+    fProduct.errorCode = 'noerror'
     fProduct = dbms.FindProduct()
     return redirect(url_for('findProduct'))
 
@@ -85,10 +97,14 @@ def resetFindProducts():
 def searchFindProducts():
     global runningAcc
     runningAcc = None
-    global fProduct
     data = request.form
-    fProduct.sType = data['type']
-    fProduct.getDetails()
+    global fProduct
+    if data['type'] == 'none':
+        fProduct.errorCode = 'error'
+    else:
+        fProduct.sType = data['type']
+        fProduct.errorCode = 'noerror'
+        fProduct.getDetails()
     return redirect(url_for('findProduct'))
 
 
@@ -229,8 +245,8 @@ def admin():
         return redirect(url_for('adminlogin'))
 
 
-@app.route('/admin/login', methods=['POST', 'GET'])
-@app.route('/admin/login/', methods=['POST', 'GET'])
+@app.route('/login', methods=['POST', 'GET'])
+@app.route('/login/', methods=['POST', 'GET'])
 def adminlogin():
     global runningAcc
     runningAcc = None
@@ -424,5 +440,10 @@ def addemployee():
     return redirect(url_for('admin'))
 
 
+@app.errorhandler(404)
+def pageNotFound(e):
+    return render_template('404.html'), 404
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
