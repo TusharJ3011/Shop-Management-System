@@ -1,5 +1,6 @@
 from datetime import date, datetime
 import mysql.connector
+import os
 
 import security
 import mail
@@ -382,9 +383,9 @@ class Checkout(FindProduct):
 def createRunners():
     myDB = mysql.connector.connect(
         host="remotemysql.com",
-        user="lwJskOUFdk",
-        password="mpK8xPst6r",
-        database="lwJskOUFdk"
+        user=os.environ['DBMS_USER'],
+        password=os.environ['DBMS_PASS'],
+        database=os.environ['DBMS_DATABASE']
     )
     myCursor = myDB.cursor()
     return [myDB, myCursor]
