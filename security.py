@@ -1,7 +1,6 @@
 import werkzeug.security
 import os
 
-# Password : 20UCS211
 ADMINUSERNAME = os.environ['ADMIN_USER'].lower()
 ADMINPASSWORD = os.environ['ADMIN_PASS']
 
