@@ -1,8 +1,9 @@
 import werkzeug.security
+import os
 
 # Password : 20UCS211
-ADMINUSERNAME = '20UCS211'.lower()
-ADMINPASSWORD = 'pbkdf2:sha256:260000$9xVGsdJGtiEW1Za8$63d59cec63d2b93ab6fd75988e74a8d2857399188751298a471a60da83d95a87'
+ADMINUSERNAME = os.environ['ADMIN_USER'].lower()
+ADMINPASSWORD = os.environ['ADMIN_PASS']
 
 
 def securePassword(password):
@@ -39,4 +40,3 @@ def checkEmployee(employee, password):
         return True
     else:
         return False
-
