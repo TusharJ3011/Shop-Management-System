@@ -1,12 +1,13 @@
 from flask import render_template, url_for, Flask, request, redirect, session
 import datetime as dt
+import os
 
 # Local Files
 import dbms
 import security
 
 app = Flask(__name__)
-app.secret_key = '20UCS211_SMS'
+app.secret_key = os.environ['APP_KEY']
 
 WORKING_AGE_LIMIT_DAYS = int(14 * 365.25)
 
