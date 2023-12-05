@@ -1,0 +1,29 @@
+<!--ADD A NEW STORE BRANCH-->
+
+<div class="card" style="background-color: rgba(0, 0, 0, 0.3)!important;">
+    <div class="card-header">
+      <a class="{%if runningAcc != 'addbranch'%}collapsed{%endif%} card-link" data-toggle="collapse" href="#newBranch">Add A New Store Branch</a>
+    </div>
+    <div id="newBranch" class="collapse {%if runningAcc == 'addbranch'%}show{%endif%}" data-parent="#accordion">
+      <div class="card-body">
+            <form method="post", action="{{url_for('addbranch')}}">
+                <div class="input-group m-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Branch Name</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Enter Branch Name" name="shopname">
+                </div>
+
+                <div class="input-group m-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Branch Address</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Enter Branch Address" name="shopaddress">
+                </div>
+
+                <button type="submit" class="btn btn-success m-1" >Add Branch</button>
+            </form>
+
+      </div>
+    </div>
+</div>

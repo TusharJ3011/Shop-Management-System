@@ -1,0 +1,14 @@
+    <link rel = "icon" href ="../static/SMS_logo_black.png" type = "image/png"></head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: rgba(0, 0, 0, 0.3)!important;">
+        <a href="{{url_for('home')}}" style="font-family: 'Roboto Slab', serif; font-size: x-large;"><img src="../static/SMS_logo.png" style="width:4vw;"></a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#collapsible_1"><span class="navbar-toggler-icon"></span></button>
+
+        <div class="collapse navbar-collapse" id="collapsible_1">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a href="{{url_for('home')}}" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="{{url_for('findProduct')}}" class="nav-link">Find Product</a></li>
+            <li class="nav-item"><a href="{{url_for('checkout')}}" class="nav-link">Checkout</a></li>
+          </ul>
+        </div>
+    </nav>

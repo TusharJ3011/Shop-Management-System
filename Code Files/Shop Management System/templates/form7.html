@@ -1,0 +1,45 @@
+<!--GET MONTHLY REVENUE-->
+
+<div class="card" style="background-color: rgba(0, 0, 0, 0.3)!important;">
+    <div class="card-header">
+      <a class="{%if runningAcc != 'revmonth'%}collapsed{%endif%} card-link" data-toggle="collapse" href="#MonthRevenue">Get Monthly Revenue</a>
+    </div>
+    <div id="MonthRevenue" class="collapse {%if runningAcc == 'revmonth'%}show{%endif%}" data-parent="#accordion">
+        <div class="card-body">
+            {%if monthData[1]%}
+            <div class="alert alert-danger">
+                ERROR 401: Unauthorised User
+            </div>
+            {%endif%}
+            <form method="post", action="{{url_for('revmonth')}}">
+                <div class="input-group mb-3">
+                    <select name="month" class="form-control">
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <select name="year" class="form-control">
+                        {%for year in range(2015,2022)%}
+                        <option>{{year}}</option>
+                        {%endfor%}
+                    </select>
+                    <input type="password" name="password" class="form-control" placeholder="Re-Enter Password">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-success" >Get</button>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <p>This Month's Revenue: Rs. {{monthData[0]}}</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,178 @@
+{%include 'headers.html'%}
+    <title>Title</title>
+</head>
+<body>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#billbook">Billbook</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#productsBought">Products Bought</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#brands">Brands</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#products">Products</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#types">Types</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#shops">Shops</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#employees">Employees</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane container active" id="billbook">
+            <table class="table table-borderless table-responsive">
+                <thead>
+                    <th>Purchased From Branch</th>
+                    <th>Purchased From Employee</th>
+                    <th>Date Of Purchase</th>
+                    <th>Bill ID</th>
+                    <th>Amount Received</th>
+                </thead>
+                <tbody>
+                    {%for data in logs[0]%}
+                    <tr>
+                        <td>{{data[0]}}</td>
+                        <td>{{data[1]}}</td>
+                        <td>{{data[2]}}</td>
+                        <td>{{data[3]}}</td>
+                        <td>{{data[4]}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+              </table>
+        </div>
+
+        <div class="tab-pane container fade" id="productsBought">
+            <table class="table table-borderless table-responsive">
+                <thead>
+                    <th>Bill ID</th>
+                    <th>Product ID</th>
+                </thead>
+                <tbody>
+                    {%for data in logs[6]%}
+                    <tr>
+                        <td>{{data[0]}}</td>
+                        <td>{{data[1]}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+              </table>
+        </div>
+
+        <div class="tab-pane container fade" id="brands">
+            <table class="table table-borderless table-responsive">
+                <thead>
+                    <th>Brand ID</th>
+                    <th>Name Of Brand</th>
+                </thead>
+                <tbody>
+                    {%for data in logs[1]%}
+                    <tr>
+                        <td>{{data[0]}}</td>
+                        <td>{{data[1]}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+              </table>
+        </div>
+
+        <div class="tab-pane container fade" id="products">
+            <table class="table table-borderless table-responsive">
+                <thead>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Brand ID</th>
+                </thead>
+                <tbody>
+                    {%for data in logs[2]%}
+                    <tr>
+                        <td>{{data[0]}}</td>
+                        <td>{{data[1]}}</td>
+                        <td>{{data[2]}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+              </table>
+        </div>
+
+        <div class="tab-pane container fade" id="types">
+            <table class="table table-borderless table-responsive">
+                <thead>
+                    <th>Type ID</th>
+                    <th>Name Of Type</th>
+                    <th>Cost</th>
+                    <th>Manufacturing Date</th>
+                    <th>Expiry Date</th>
+                    <th>Products Available</th>
+                    <th>Product ID</th>
+                </thead>
+                <tbody>
+                    {%for data in logs[3]%}
+                    <tr>
+                        <td>{{data[0]}}</td>
+                        <td>{{data[1]}}</td>
+                        <td>{{data[2]}}</td>
+                        <td>{{data[3]}}</td>
+                        <td>{{data[4]}}</td>
+                        <td>{{data[5]}}</td>
+                        <td>{{data[6]}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+              </table>
+        </div>
+
+        <div class="tab-pane container fade" id="shops">
+            <table class="table table-borderless table-responsive">
+                <thead>
+                    <th>Shop ID</th>
+                    <th>Name Of Shop</th>
+                    <th>Address Of Shop</th>
+                </thead>
+                <tbody>
+                    {%for data in logs[4]%}
+                    <tr>
+                        <td>{{data[0]}}</td>
+                        <td>{{data[1]}}</td>
+                        <td>{{data[2]}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+              </table>
+        </div>
+
+        <div class="tab-pane container fade" id="employees">
+            <table class="table table-borderless table-responsive">
+                <thead>
+                    <th>Employee ID</th>
+                    <th>Name Of Employee</th>
+                    <th>Phone Number</th>
+                    <th>Date Of Birth</th>
+                    <th>Address</th>
+                </thead>
+                <tbody>
+                    {%for data in logs[5]%}
+                    <tr>
+                        <td>{{data[0]}}</td>
+                        <td>{{data[1]}}</td>
+                        <td>{{data[2]}}</td>
+                        <td>{{data[3]}}</td>
+                        <td>{{data[4]}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+              </table>
+        </div>
+    </div>
+</body>
+</html>

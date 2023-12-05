@@ -1,0 +1,71 @@
+<!--ADD A NEW PRODUCT OF EXISTING BRAND-->
+
+<div class="card" style="background-color: rgba(0, 0, 0, 0.3)!important;">
+    <div class="card-header">
+      <a class="{%if runningAcc != 'addnp'%}collapsed{%endif%} card-link" data-toggle="collapse" href="#newProduct">Add New Product Of Existing Brand</a>
+    </div>
+    <div id="newProduct" class="collapse {%if runningAcc == 'addnp'%}show{%endif%}" data-parent="#accordion">
+      <div class="card-body">
+            {%if newProduct.error%}
+            <div class="alert alert-danger">
+                ERROR: Product could not be added.
+            </div>
+            {%endif%}
+            <form method="post", action="{{url_for('addnpadd')}}">
+                <div class="input-group m-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Product Brand</span>
+                    </div>
+                    <select class="custom-select" name="brand">
+                        {% for brand in newProduct.brands %}
+                        <option>{{brand}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="input-group m-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Product Name</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Product Name" name="product">
+                </div>
+
+                <div class="input-group m-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Product Type</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Product Type" name="type">
+                </div>
+                <div class="input-group m-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Price</span>
+                    </div>
+                    <input type="number" class="form-control" placeholder="Price" name="price">
+                </div>
+                <div class="input-group m-1">
+                     <div class="input-group-prepend">
+                            <span class="input-group-text">Quantity</span>
+                        </div>
+                        <select class="custom-select" name="quantity">
+                            {% for number in range(1,1001) %}
+                            <option>{{number}}</option>
+                            {% endfor %}
+                        </select>
+                </div>
+                <div class="input-group m-1">
+                     <div class="input-group-prepend">
+                            <span class="input-group-text">Manufacturing Date</span>
+                     </div>
+                     <input type="date" name="mDate" style="border-color: #d1d7dc; color: #5f656c;" class="border rounded-right" max="{{today}}">
+                </div>
+                <div class="input-group m-1">
+                     <div class="input-group-prepend">
+                            <span class="input-group-text">Expiry Date</span>
+                        </div>
+                        <input type="date" name="eDate" style="border-color: #d1d7dc; color: #5f656c;" class="border rounded-right" min="{{today}}">
+                </div>
+                <button type="submit" class="btn btn-success m-1" >Add Product</button>
+            </form>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+{%include 'headers.html'%}
+    <title>Checkout | SMS</title>
+
+    <!-- Google Icons Library -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+{%include 'navbar.html'%}
+
+    <h1 style="text-align: center">Checkout</h1>
+    {%if checkoutProduct.errorCode == 'warning'%}
+    <div class="alert alert-warning">
+        The quantity added is less than the quantity demanded.
+    </div>
+    {%elif checkoutProduct.errorCode=='danger'%}
+    <div class="alert alert-danger">
+        The product is not available for sale.
+    </div>
+    {%endif%}
+    {%if checkoutProduct.errorCode=='error'%}
+    <div class="alert alert-danger">
+        Please select correct values
+    </div>
+    {%endif%}
+
+    <form method="post", action="{{url_for('cpro')}}">
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Product Brand</span>
+            </div>
+            <select class="custom-select" id="productBrand" name="brand">
+                <option value="none">Please select here...</option>
+                {% for brand in checkoutProduct.brands %}
+                <option {%if brand == checkoutProduct.sBrand%}selected{%endif%}>{{brand}}</option>
+                {% endfor %}
+            </select>
+        </div>
+            <button class="btn btn-success m-1" type="submit">Search Products</button>
+    </form>
+    <br>
+
+    {%if checkoutProduct.sBrand != None %}
+    <form method="post", action="{{url_for('ctype')}}">
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Product Name</span>
+            </div>
+            <select class="custom-select" id="productName" name="product">
+                <option value="none">Please select here...</option>
+                {% for product in checkoutProduct.products %}
+                <option {%if product == checkoutProduct.sProduct %}selected{%endif%}>{{product}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success m-1" >Search Product Types</button>
+    </form>
+    <br>
+    {%if checkoutProduct.sProduct != None%}
+    <form method="post", action="{{url_for('addcheckout')}}">
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Product Type</span>
+            </div>
+            <select class="custom-select" id="productType", name="type">
+                <option value="none">Please select here...</option>
+                {% for type in checkoutProduct.types %}
+                <option {%if type == checkoutProduct.sType%}selected{%endif%}>{{type}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input-group m-1">
+             <div class="input-group-prepend">
+                    <span class="input-group-text">Quantity</span>
+                </div>
+                <select class="custom-select" id="quantity", name="quantity">
+                    {% for number in range(1,11) %}
+                    <option>{{number}}</option>
+                    {% endfor %}
+                </select>
+        </div>
+        <button type="submit" class="btn btn-success m-1" >Add Product</button>
+    </form>
+    <br>
+    {%endif%}
+    {%endif%}
+
+    {%for i in range(0,length)%}
+    <div class="mw-100 border border-secondary rounded-lg m-1">
+        <a href="{{url_for('removetag', index=i, id=checkoutProduct.tags[i][0], quantity=checkoutProduct.tags[i][3])}}" style="float: right"><span class="material-icons" style="background: none; color: #6c757d;">cancel</span></a><br>
+        <p>Product ID: {{checkoutProduct.tags[i][0]}}</p>
+        <p>Product Name: {{checkoutProduct.tags[i][1]}}</p>
+        <p>Product Labelled Price: Rs. {{checkoutProduct.tags[i][2]}}</p>
+        <p>Quantity: {{checkoutProduct.tags[i][3]}}</p>
+        <p style="color: green; font-size: larger; font-weight: bolder">Rs. {{checkoutProduct.tags[i][4]}}</p>
+    </div>
+    {%endfor%}
+
+    <div style="margin-top: 100px;" class="m-1">
+        <p>Total Cost: Rs. {{checkoutProduct.cost}}</p>
+        <p>GST(0%): Rs. {{tax}}</p>
+        <p>Amount to Pay: Rs. {{checkoutProduct.amount}}</p>
+    </div>
+
+        <a href="{{url_for('proceedcheckout')}}" class="btn btn-secondary btn-lg {%if amount == 0%}disabled{%endif%}">Checkout</a>
+
+</body>
+</html>

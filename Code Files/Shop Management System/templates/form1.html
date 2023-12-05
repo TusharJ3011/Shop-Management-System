@@ -1,0 +1,91 @@
+<!--Restock form-->
+
+<div class="card" style="background-color: rgba(0, 0, 0, 0.3)!important;">
+    <div class="card-header">
+      <a class="{%if runningAcc != 'restock'%}collapsed{%endif%} card-link" data-toggle="collapse" href="#collapseOne">Restock Existing Item</a>
+    </div>
+    <div id="collapseOne" class="collapse {%if runningAcc == 'restock'%}show{%endif%}" data-parent="#accordion">
+      <div class="card-body">
+          {%if restock.error%}
+          <div class="alert alert-warning">
+                Due to existence of old products a new type field with typeName = '[typeName] - Restock' has been added.
+          </div>
+          {%endif%}
+            <form method="post", action="{{url_for('restockproduct')}}">
+                <div class="input-group m-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Product Brand</span>
+                    </div>
+                    <select class="custom-select" name="brand">
+                        {% for brand in restock.brands %}
+                        <option {%if brand == restock.sBrand%}selected{%endif%}>{{brand}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                    <button class="btn btn-success m-1" type="submit">Search Products</button>
+            </form>
+            <br>
+
+            {%if restock.sBrand != None %}
+            <form method="post", action="{{url_for('restocktypes')}}">
+                <div class="input-group m-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Product Name</span>
+                    </div>
+                    <select class="custom-select" name="product">
+                        {% for product in restock.products %}
+                        <option {%if product == restock.sProduct %}selected{%endif%}>{{product}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success m-1" >Search Product Types</button>
+            </form>
+            <br>
+            {%if restock.sProduct != None%}
+            <form method="post", action="{{url_for('restockadd')}}">
+                <div class="input-group m-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Product Type</span>
+                    </div>
+                    <select class="custom-select" id="productType", name="type">
+                        {% for type in restock.types %}
+                        <option>{{type}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-group m-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Price</span>
+                    </div>
+                    <input type="number" class="form-control" placeholder="Price" name="price">
+                </div>
+                <div class="input-group m-1">
+                     <div class="input-group-prepend">
+                            <span class="input-group-text">Quantity</span>
+                        </div>
+                        <select class="custom-select" name="quantity">
+                            {% for number in range(1,1001) %}
+                            <option>{{number}}</option>
+                            {% endfor %}
+                        </select>
+                </div>
+                <div class="input-group m-1">
+                     <div class="input-group-prepend">
+                            <span class="input-group-text">Manufacturing Date</span>
+                     </div>
+                     <input type="date" name="mDate" style="border-color: #d1d7dc; color: #5f656c;" class="border rounded-right" max="{{today}}">
+                </div>
+                <div class="input-group m-1">
+                     <div class="input-group-prepend">
+                            <span class="input-group-text">Expiry Date</span>
+                        </div>
+                        <input type="date" name="eDate" style="border-color: #d1d7dc; color: #5f656c;" class="border rounded-right" min="{{today}}">
+                </div>
+                <button type="submit" class="btn btn-success m-1" >Add Product</button>
+            </form>
+            <br>
+            {%endif%}
+            {%endif%}
+              </div>
+            </div>
+        </div>

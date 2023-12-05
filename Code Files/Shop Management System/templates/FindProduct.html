@@ -1,0 +1,90 @@
+{%include 'headers.html'%}
+<title>Find Product | SMS</title>
+<style>
+    body {
+    width: 100%;
+    }
+</style>
+{%include 'navbar.html'%}
+
+    <h1 style="text-align: center">Find Product</h1>
+
+    {%if fProduct.errorCode=='error'%}
+    <div class="alert alert-danger">
+        Please select correct values
+    </div>
+    {%endif%}
+
+    <form method="post", action="/fpro">
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Product Brand</span>
+            </div>
+            <select class="custom-select" id="productBrand" name="brand">
+                <option value="none">Please select here...</option>
+                {% for brand in fProduct.brands %}
+                <option {%if brand == fProduct.sBrand%}selected{%endif%}>{{brand}}</option>
+                {% endfor %}
+            </select>
+        </div>
+            <button class="btn btn-success m-1" type="submit">Search Products</button>
+    </form>
+    <br>
+
+    {%if fProduct.sBrand != None %}
+    <form method="post", action="{{url_for('ftype')}}">
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Product Name</span>
+            </div>
+            <select class="custom-select" id="productName" name="product">
+                <option value="none">Please select here...</option>
+                {% for product in fProduct.products %}
+                <option {%if product == fProduct.sProduct %}selected{%endif%}>{{product}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success m-1" >Search Product Types</button>
+    </form>
+    <br>
+    {%if fProduct.sProduct != None%}
+    <form method="post", action="{{url_for('searchFindProducts')}}">
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Product Type</span>
+            </div>
+            <select class="custom-select" id="productType" name="type">
+                <option value="none">Please select here...</option>
+                {% for type in fProduct.types %}
+                <option {%if type == fProduct.sType%}selected{%endif%}>{{type}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success ml-1" >Search Details</button>
+    </form>
+    <br>
+    {%endif%}
+    {%endif%}
+
+    <form method="post", action="{{url_for('resetFindProducts')}}">
+        <button type="submit" style="float: right;" class="btn btn-danger m-1" >Reset</button>
+    </form>
+    <br><br>
+
+    {% if fProduct.details != None %}
+    <div id="'details" class=" m-1">
+        <h3>Product Details:</h3>
+        {% if fProduct.details[6] == 'available'%}
+        <h5 style="color: green">Product Available</h5>
+        {%else%}
+        <h5 style="color: red">Product Not Available</h5>
+        {%endif%}
+        <p>Product Name: {{fProduct.details[1]}}</p>
+        <p>Product Price: Rs. {{fProduct.details[2]}}</p>
+        <p>Product Manufacturing Date: {{fProduct.details[3]}}</p>
+        <p>Product Expiry Date: {{fProduct.details[4]}}</p>
+        <p>Product(s) Available: {{fProduct.details[5]}}</p>
+    </div>
+    {%endif%}
+</body>
+</html>

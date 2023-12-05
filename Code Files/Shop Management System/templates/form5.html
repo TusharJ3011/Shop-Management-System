@@ -1,0 +1,26 @@
+<!--GET TODAY'S REVENUE-->
+
+<div class="card" style="background-color: rgba(0, 0, 0, 0.3)!important;">
+    <div class="card-header">
+      <a class="{%if runningAcc != 'revtoday'%}collapsed{%endif%} card-link" data-toggle="collapse" href="#todayRevenue">Get Today's Revenue</a>
+    </div>
+    <div id="todayRevenue" class="collapse {%if runningAcc == 'revtoday'%}show{%endif%}" data-parent="#accordion">
+        <div class="card-body">
+            {%if todayData[1]%}
+            <div class="alert alert-danger">
+                ERROR 401: Unauthorised User
+            </div>
+            {%endif%}
+            <form method="post", action="{{url_for('revtoday')}}">
+                <div class="input-group mb-3">
+                    <input type="password" name="password" class="form-control" placeholder="Re-Enter Password">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-success" >Get</button>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <p>Today's Revenue: Rs. {{todayData[0]}}</p>
+        </div>
+    </div>
+</div>
